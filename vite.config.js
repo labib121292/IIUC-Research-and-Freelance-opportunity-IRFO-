@@ -4,5 +4,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/IIUC-Research-and-Freelance-opportunity-IRFO-/',
   plugins: [react(), tailwindcss()],
 })
