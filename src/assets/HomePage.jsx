@@ -5,6 +5,7 @@ import { FreelanceContext } from "./FreelanceContext";
 import IRFO from "./IRFO.mp4";
 import { motion } from 'framer-motion';
 import leaderboard from "./leaderboard.svg";
+import JoinPage from "./JoinPage";
 
 
 export default function HomePage() {
@@ -14,88 +15,84 @@ export default function HomePage() {
   return (
     <div className="min-h-screen animated-background bg-gradient-to-r from-black via-blue-900 to-blue-800 flex flex-col">
       {/* Top Navbar */}
-      <nav className="navbar bg-black shadow-sm px-4 md:px-8 sticky top-0 z-50">
-        <div className="flex items-center gap-2 flex-1">
-          <span className="text-info text-2xl font-semibold">Collaborate. Innovate. Earn.</span>
-        </div>
-        <div className="hidden md:flex gap-6 px-6 items-center">
-        
-           <button className=" no-underline btn-info">
-            <span  className="btn btn-info no-underline">
-             Home
-            </span>
-          </button>
-          <button className="btn btn-outline no-underline btn-info">
-            <Link to="/research" className=" no-underline">
-             Research
-            </Link>
-          </button>
-         
-           <button className="btn btn-outline no-underline btn-info">
-            <Link to="/freelance" className=" no-underline">
-             Freelance
-            </Link>
-          </button>
-           <button className="btn btn-outline no-underline btn-info">
-            <Link to="/ideas" className=" no-underline">
-             Ideas
-            </Link>
-          </button>
-           <button className="btn btn-outline no-underline btn-info">
-            <Link to="/leaderboard" className=" no-underline">
-             Leaderboard
-            </Link>
-          </button>
-        
-        </div>
-        <div className="flex items-center gap-2 md:hidden">
-          <input
-            type="text"
-            placeholder="Search in site"
-            className="input bg-black input-bordered input-sm w-32"
-          />
-          <button
-            className="btn btn-ghost btn-circle"
-            onClick={() => setMobileMenuOpen((open) => !open)}
-          >
-            <svg width="24" height="24" fill="none" className="inline-block">
-              <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" />
-            </svg>
-          </button>
-        </div>
-      </nav>
+      {/* Top Navbar */}
+{/* Top Navbar */}
+<nav className="navbar bg-black shadow-sm px-4 md:px-8 sticky top-0 z-50">
+  <div className="flex items-center gap-2 flex-1">
+    <span className="text-info text-2xl font-semibold">
+      Collaborate. Innovate. Earn.
+    </span>
+  </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <>
-          {/* Transparent overlay to close menu when clicking outside */}
-          <div
-            className="fixed inset-0 z-40 bg-transparent"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          {/* Only menu buttons, transparent background */}
-          <div
-            className="fixed top-16 right-2 z-50"
-            style={{ background: "transparent" }}
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="flex flex-col items-end gap-2">
-              <Link to="/" className="btn btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-              <Link to="/research" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Research</Link>
-              <Link to="/freelance" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Freelance</Link>
-              <Link to="/ideas" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Ideas</Link>
-              <Link to="/leaderboard" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Leaderboard</Link>
-            </div>
-          </div>
-        </>
-      )}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setMobileMenuOpen(false)}
-          style={{ background: "transparent" }}
-        />
-      )}
+  {/* Desktop Menu */}
+  <div className="hidden md:flex gap-6 px-6 items-center">
+    <button className="btn btn-info no-underline">
+      <span className="no-underline">Home</span>
+    </button>
+    <button className="btn btn-outline no-underline btn-info">
+      <Link to="/research" className="no-underline">Research</Link>
+    </button>
+    <button className="btn btn-outline no-underline btn-info">
+      <Link to="/freelance" className="no-underline">Freelance</Link>
+    </button>
+    <button className="btn btn-outline no-underline btn-info">
+      <Link to="/ideas" className="no-underline">Ideas</Link>
+    </button>
+    <button className="btn btn-outline no-underline btn-info">
+      <Link to="/leaderboard" className="no-underline">Leaderboard</Link>
+    </button>
+
+    {/* Single Join Button */}
+    <Link to="/join" className="btn btn-warning text-black font-semibold no-underline">
+      Join
+    </Link>
+  </div>
+
+  {/* Mobile Menu Toggle */}
+  <div className="flex items-center gap-2 md:hidden">
+    <input
+      type="text"
+      placeholder="Search in site"
+      className="input bg-black input-bordered input-sm w-32"
+    />
+    <button
+      className="btn btn-ghost btn-circle"
+      onClick={() => setMobileMenuOpen((open) => !open)}
+    >
+      <svg width="24" height="24" fill="none" className="inline-block">
+        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+{/* Mobile Menu */}
+{mobileMenuOpen && (
+  <>
+    <div
+      className="fixed inset-0 z-40 bg-transparent"
+      onClick={() => setMobileMenuOpen(false)}
+    />
+    <div
+      className="fixed top-16 right-2 z-50"
+      style={{ background: "transparent" }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="flex flex-col items-end gap-2">
+        <Link to="/" className="btn btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+        <Link to="/research" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Research</Link>
+        <Link to="/freelance" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Freelance</Link>
+        <Link to="/ideas" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Ideas</Link>
+        <Link to="/leaderboard" className="btn btn-outline btn-info btn-sm" onClick={() => setMobileMenuOpen(false)}>Leaderboard</Link>
+
+        {/* Mobile Join Button */}
+        <Link to="/join" className="btn btn-warning btn-sm text-black font-semibold" onClick={() => setMobileMenuOpen(false)}>Join</Link>
+      </div>
+    </div>
+  </>
+)}
+
+
 
       {/* Hero Section */}
 

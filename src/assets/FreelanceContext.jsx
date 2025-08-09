@@ -1,9 +1,11 @@
 // src/assets/FreelanceContext.jsx
-import React, { createContext, useState } from "react";
+
+import React, { createContext, useContext, useState } from "react";
 
 export const FreelanceContext = createContext();
 
 export function FreelanceProvider({ children }) {
+  // ✅ Task state
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -34,9 +36,27 @@ export function FreelanceProvider({ children }) {
     },
   ]);
 
+  // ✅ Auth state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState("");
+
   return (
-    <FreelanceContext.Provider value={{ tasks, setTasks }}>
+    <FreelanceContext.Provider
+      value={{
+        tasks,
+        setTasks,
+        isAuthenticated,
+        setIsAuthenticated,
+        userRole,
+        setUserRole,
+      }}
+    >
       {children}
     </FreelanceContext.Provider>
   );
+}
+
+// ✅ Custom hook for using context
+export function useFreelanceContext() {
+  return useContext(FreelanceContext);
 }

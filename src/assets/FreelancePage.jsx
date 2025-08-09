@@ -1,10 +1,10 @@
 // src/assets/FreelancePage.jsx
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FreelanceContext } from "./FreelanceContext";
+import axios from "axios";
 
 export default function FreelancePage() {
   const { tasks, setTasks } = useContext(FreelanceContext);
-
   const [search, setSearch] = useState("");
   const [level, setLevel] = useState("");
   const [category, setCategory] = useState("");
@@ -18,28 +18,46 @@ export default function FreelancePage() {
     description: "",
   });
 
+  // ✅ Fetch tasks from backend when page loads
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/tasks")
+      .then(res => setTasks(res.data))
+      .catch(err => console.error("Failed to fetch tasks:", err));
+  }, [setTasks]);
+
   const handleInputChange = (e) => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
 
-  const handlePostTask = (e) => {
+  const handlePostTask = async (e) => {
     e.preventDefault();
     if (!newTask.title || !newTask.category || !newTask.level || !newTask.budget) return;
 
-    const taskToAdd = {
-      ...newTask,
-      id: tasks.length + 1,
-      budget: parseInt(newTask.budget),
-    };
-    setTasks([taskToAdd, ...tasks]);
-    setNewTask({
-      title: "",
-      category: "",
-      budget: "",
-      level: "",
-      deadline: "",
-      description: "",
-    });
+    try {
+      const res = await axios.post("http://localhost:5000/api/tasks", {
+        ...newTask,
+        budget: parseInt(newTask.budget),
+      });
+
+      const addedTask = {
+        ...newTask,
+        id: res.data.id,
+        budget: parseInt(newTask.budget),
+      };
+      setTasks([addedTask, ...tasks]);
+
+      setNewTask({
+        title: "",
+        category: "",
+        budget: "",
+        level: "",
+        deadline: "",
+        description: "",
+      });
+    } catch (err) {
+      console.error("Failed to post task:", err);
+      alert("Failed to post task. Check backend.");
+    }
   };
 
   const filteredTasks = tasks.filter((task) => {
@@ -158,7 +176,7 @@ export default function FreelancePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredTasks.length ? (
               filteredTasks.map((task) => (
-                <div key={task.id} className="transform  rounded-xl shadow-xl transition duration-300 hover:scale-105 card bg-base-200 p-6">
+                <div key={task.id} className="transform rounded-xl shadow-xl transition duration-300 hover:scale-105 card bg-base-200 p-6">
                   <h3 className="text-xl font-semibold">{task.title}</h3>
                   <div className="text-sm text-black mb-1">{task.category} • {task.level}</div>
                   <div className="mb-2 text-sm text-black">{task.description}</div>

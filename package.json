@@ -1,6 +1,5 @@
 {
   "homepage": "https://labib121292.github.io/IIUC-Research-and-Freelance-opportunity-IRFO-",
-
   "name": "irfo",
   "private": true,
   "version": "0.0.0",
@@ -15,6 +14,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "axios": "^1.11.0",
     "framer-motion": "^12.23.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
